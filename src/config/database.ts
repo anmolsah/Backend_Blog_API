@@ -17,4 +17,10 @@ export const connectDb = async (): Promise<void> => {
   }
 };
 
-
+export const disconnectDB = async (): Promise<void> => {
+  try {
+    await mongoose.connection.close();
+  } catch (error) {
+    throw new Error(`Error disconnecting from MongoDB: ${error}`);
+  }
+};

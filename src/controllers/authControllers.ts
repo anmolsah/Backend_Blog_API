@@ -48,3 +48,4 @@ export async function register(req: Request, res: Response) {
 }
 
 //login a user
+export async function login(req: Request, res: Response) {}

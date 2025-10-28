@@ -15,14 +15,20 @@
 // });
 
 import express from "express";
+import dotenv from "dotenv";
+import swaggerUI from "swagger-ui-express";
+import swaggerSpec from "./config/swagger";
+import authRoutes from "./routes/authRoutes";
+
+dotenv.config();
 
 const app = express();
 
 const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+app.use("/api/auth",authRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

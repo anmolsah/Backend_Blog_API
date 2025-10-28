@@ -19,17 +19,21 @@ import dotenv from "dotenv";
 import swaggerUI from "swagger-ui-express";
 import swaggerSpec from "./config/swagger";
 import authRoutes from "./routes/authRoutes";
+import { connectDb } from "./config/database";
 
 dotenv.config();
 
 const app = express();
-
 const port = 3000;
 
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
-app.use("/api/auth",authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
+});
+
+connectDb().catch((err) => {
+  console.error("Failed to connect to the database", err);
 });

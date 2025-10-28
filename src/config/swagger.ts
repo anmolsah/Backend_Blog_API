@@ -1,7 +1,7 @@
 import swaggerJsDoc from "swagger-jsdoc";
 
 const options: swaggerJsDoc.Options = {
-  defination: {
+  definition: {
     openapi: "3.0.0",
     info: {
       title: "Backend Blog API",

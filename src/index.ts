@@ -20,10 +20,13 @@ import swaggerUI from "swagger-ui-express";
 import swaggerSpec from "./config/swagger";
 import authRoutes from "./routes/authRoutes";
 import { connectDb } from "./config/database";
+import morgan from "morgan";
 
 dotenv.config();
 
 const app = express();
+app.use(express.json());
+app.use(morgan("dev"));
 const port = 3000;
 
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));

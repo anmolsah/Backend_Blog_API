@@ -30,3 +30,5 @@ export function requireAuth(
     return res.status(401).json({ message: "Unauthorized" });
   }
 }
+
+export default requireAuth;

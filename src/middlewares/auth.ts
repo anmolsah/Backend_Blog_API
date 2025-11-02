@@ -16,6 +16,17 @@ export function requireAuth(
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const toekn = header.slice("Bearer".length);
-  } catch (error) {}
+    const token = header.slice("Bearer".length);
+    const secret = process.env["JWT_SECRET"] as string; //to verify the token
+
+    if (!secret) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+
+    const payload = jwt.verify(token, secret) as { userId: string };
+    req.userId = payload.userId;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 }

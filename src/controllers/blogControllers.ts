@@ -43,3 +43,37 @@ export async function getBlog(req:AuthRequest,res:Response){
         
     }
 }
+
+
+//update blog
+export async function updateBlog(req:AuthRequest,res:Response){
+    try {
+        const {id} = req.params as{id:string};
+        const blog = await Blog.findById(id);
+        if(!blog){
+            return res.statuys(404).json({message:"Blog not found"});
+        }
+
+        if(blog.author.toString() !== req.userId){
+            return res.status(403).json({message:"Forbidden"});
+        }
+
+        const {title,content} = req.body as {title:string;content:string};
+        if(!title || !content){
+            return res.status(400).json({message:"All fields are required"});
+        }
+        if(typeof title === "string") blog.title = title;
+        if(typeof content === "string") blog.content = content;
+
+        if(req.file){
+            blog.imageUrl = `/uploads/${req.file.filename}`
+        }
+
+        await blog.save();
+        return res.json(blog);
+
+    } catch (error) {
+        return res.status(500).json({message:"Internal server error"});
+        
+    }
+}

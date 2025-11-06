@@ -17,3 +17,15 @@ export async function createBlog(req:AuthRequest,res:Response){
         
     }
 }
+
+
+//List Blogs
+export async function listBlogs(req:AuthRequest,res:Response){
+    try {
+        const blogs = await Blog.find().populate("author","name email").sort({createdAt:-1});
+        return res.json(blogs);
+    } catch (error) {
+        return res.status(500).json({message:"Internal server error"});
+    }
+}
+

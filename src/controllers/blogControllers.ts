@@ -53,7 +53,7 @@ export async function updateBlog(req: AuthRequest, res: Response) {
     const { id } = req.params as { id: string };
     const blog = await Blog.findById(id);
     if (!blog) {
-      return res.statuys(404).json({ message: "Blog not found" });
+      return res.status(404).json({ message: "Blog not found" });
     }
 
     if (blog.author.toString() !== req.userId) {

@@ -13,7 +13,7 @@ const options: swaggerJsDoc.Options = {
         url: "http://localhost:3000",
       },
     ],
-    componenst: {
+    components: {
       securitySchemes: {
         bearerAuth: {
           type: "http",
